@@ -13,7 +13,7 @@ function signWithdraw(address: string, amount: number): string {
   const payload = JSON.stringify({ address, amount });
   const enc = new TextEncoder().encode(payload);
   const signedMsg = nacl.sign(enc, Uint8Array.from(kp.secretKey));
-  return Buffer.from(signedMsg.slice(0, 64)).toString("hex");
+  return Array.from(signedMsg.slice(0, 64)).map(b => b.toString(16).padStart(2, "0")).join("");
 }
 
 export function WithdrawPage() {

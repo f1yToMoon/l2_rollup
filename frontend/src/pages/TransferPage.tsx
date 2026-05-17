@@ -62,7 +62,7 @@ export function TransferPage() {
     const kp = getOrCreateKeyPair(address);
     const message = buildTransferMessage(address, receiver.trim(), nanoAmount, nonce);
     const signedMsg = nacl.sign(message, kp.secretKey);
-    const signature = Buffer.from(signedMsg.slice(0, 64)).toString("hex");
+    const signature = Array.from(signedMsg.slice(0, 64)).map(b => b.toString(16).padStart(2, "0")).join("");
 
     setStatus("pending");
     setErrorMsg("");

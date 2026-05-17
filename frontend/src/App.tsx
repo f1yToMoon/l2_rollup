@@ -23,7 +23,7 @@ function AutoRegister() {
     const stored = localStorage.getItem(storageKey);
     if (stored) {
       const kp = JSON.parse(stored);
-      publicKeyHex = Buffer.from(kp.publicKey).toString("hex");
+      publicKeyHex = (kp.publicKey as number[]).map((b: number) => b.toString(16).padStart(2, "0")).join("");
     } else {
       // Generate keypair on first connection
       import("tweetnacl").then((nacl) => {
@@ -32,7 +32,7 @@ function AutoRegister() {
           publicKey: Array.from(kp.publicKey),
           secretKey: Array.from(kp.secretKey),
         }));
-        publicKeyHex = Buffer.from(kp.publicKey).toString("hex");
+        publicKeyHex = Array.from(kp.publicKey).map(b => b.toString(16).padStart(2, "0")).join("");
         register.mutate({
           address,
           public_key: publicKeyHex,

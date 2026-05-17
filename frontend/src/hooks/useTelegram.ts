@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLaunchParams, useInitData } from "@telegram-apps/sdk-react";
 
 export interface TelegramUser {
   id: number;
