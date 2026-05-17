@@ -1,6 +1,6 @@
 import { Blockchain, SandboxContract, TreasuryContract } from "@ton/sandbox";
 import { toNano, Dictionary, Address } from "@ton/core";
-import { MiniRollup } from "../wrappers/MiniRollup";
+import { MiniRollup } from "../build/MiniRollup/tact_MiniRollup";
 import "@ton/test-utils";
 
 // NOTE: Run `npx blueprint build` before running these tests.
