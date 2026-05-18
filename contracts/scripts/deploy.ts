@@ -1,9 +1,7 @@
 import { toNano, Address } from "@ton/core";
 import { NetworkProvider } from "@ton/blueprint";
 
-// Import from generated wrapper after running `npx blueprint build`
-// import { MiniRollup } from "../build/MiniRollup/tact_MiniRollup";
-import { MiniRollup } from "../wrappers/MiniRollup";
+import { MiniRollup } from "../build/MiniRollup/tact_MiniRollup";
 
 export async function run(provider: NetworkProvider) {
     const senderAddress = provider.sender().address;

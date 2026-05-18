@@ -3,7 +3,7 @@ import time
 from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 
 from auth import build_transfer_message, build_withdraw_message, verify_signature
@@ -249,6 +249,18 @@ async def settle_batch(body: SettleRequest):
 @app.get("/api/stats", response_model=Stats)
 async def get_statistics():
     return Stats(**(await get_stats()))
+
+
+# ============= TON Connect manifest =============
+
+@app.get("/tonconnect-manifest.json")
+async def tonconnect_manifest(request: Request):
+    base_url = str(request.base_url).rstrip("/")
+    return {
+        "url": base_url,
+        "name": "Mini Rollup",
+        "iconUrl": "https://ton.org/icons/ton_symbol.svg",
+    }
 
 
 # ============= Health =============

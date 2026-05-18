@@ -17,27 +17,12 @@ services:
       - TONCENTER_BASE_URL=${TONCENTER_BASE_URL:-https://testnet.toncenter.com/api/v2}
       - DATABASE_URL=sqlite+aiosqlite:////app/data/mini_rollup.db
       - OPERATOR_API_KEY=${OPERATOR_API_KEY:-dev-operator-key}
-      - ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4173
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "5173:80"
-    environment:
-      - VITE_API_URL=http://localhost:8000
-      - VITE_CONTRACT_ADDRESS=${CONTRACT_ADDRESS:-EQA_placeholder}
-      - VITE_MANIFEST_URL=http://localhost:5173/tonconnect-manifest.json
-    depends_on:
-      - backend
-    restart: unless-stopped
 
 volumes:
   backend_data:
